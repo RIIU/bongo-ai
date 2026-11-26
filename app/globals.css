@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg-void: #020205;
+  --surface-glass: rgba(12, 12, 16, 0.78);
+  --surface-border: rgba(255, 255, 255, 0.09);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.22);
+  --scrollbar-track: rgba(255, 255, 255, 0.03);
+  accent-color: #d946ef;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+html,
+body {
+  background-color: var(--bg-void);
+  color: #f4f4f5;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Native <dialog> scroll containment per modern-web-guidance */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background: rgba(2, 2, 5, 0.8);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+dialog[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog {
+    transition:
+      opacity 0.22s ease-out,
+      transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+      display 0.22s allow-discrete,
+      overlay 0.22s allow-discrete;
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  dialog[open] {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  @starting-style {
+    dialog[open] {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+  }
+}
+
+/* Legacy scrollbar fallback for browsers lacking scrollbar-color */
+@supports not (scrollbar-color: auto) {
+  .bongo-scroll {
+    scrollbar-width: auto;
+  }
+  .bongo-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .bongo-scroll::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+  .bongo-scroll::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
+/* Visually hidden accessibility helper */
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Studio obsidian stage with precision central optical spotlight */
+.studio-backdrop {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(168, 85, 247, 0.14) 0%, rgba(107, 33, 168, 0.05) 34%, rgba(2, 2, 5, 0) 64%),
+    #020205;
+}
